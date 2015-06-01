@@ -3,6 +3,8 @@
 ## performs analysis.                                                              ##
 #####################################################################################
 
+library(ggplot2)
+
 getCardData <- function(){
   
   df <- data.frame(Div=character(),
@@ -24,3 +26,15 @@ getCardData <- function(){
 }
 
 cardData <- getCardData()
+
+
+ggplot(data=cardData, aes(x=Year, y=TotalYellow, group=Div, shape=Div, colour=Div)) + 
+  geom_line(aes(linetype=Div), size=1) +
+  geom_point(size=3, fill="white") +
+  scale_colour_hue(name="Division", l=30)  +                  
+  scale_shape_manual(name="Division", values=c(22,21,23,24)) +
+  scale_linetype_discrete(name="Division") +
+  xlab("Year") + ylab("Total Yellow Cards Given") +
+  ggtitle("Total number of yellow cards given in each season") +
+  theme_bw() +
+  theme(legend.position=c(.90, .90))
